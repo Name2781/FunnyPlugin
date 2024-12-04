@@ -5,7 +5,7 @@ This plugin recreates the 1v5 but one person has wallhacks and the invisible man
 
 ## Installation
 1. Install [Counter Strike Sharp](https://docs.cssharp.dev/docs/guides/getting-started.html) on your server.
-2. Download the plugin from the [releases](https://github.com/Name2781/FunnyPlugin/releases) and put it in `server/game/csgo/addons/counterstrikesharp/plugins`.
+2. Download the plugin from the [releases](https://github.com/Name2781/FunnyPlugin/releases) and put it in `server/game/csgo/addons/counterstrikesharp/plugins/Funnies`.
 
 ## Usage:
 
