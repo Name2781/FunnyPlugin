@@ -11,7 +11,7 @@ This plugin recreates the 1v5 but one person has wallhacks and the invisible man
 
 ### Commands:
 1. `!wallhack <player name>` gives a player wallhacks.
-2. `!invisible <player name>` makes a player invisible.
+2. `!invisible <player name>` makes a player invisible. Note: have the invisible person take their skins that have StatTrak or nametags on them otherwise they won't be hidden.
 
 ### Admin Commands:
 1. `!rcon <command>` runs a server command.
