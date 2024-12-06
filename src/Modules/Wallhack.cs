@@ -105,4 +105,17 @@ public class Wallhack
         Globals.Plugin.AddCommand("css_wh", "Gives a player walls", CommandWallhack.OnWallhackCommand);
         Globals.Plugin.AddCommand("css_wallhack", "Gives a player walls", CommandWallhack.OnWallhackCommand);
     }
+
+    public static void Cleanup()
+    {
+        foreach (var entity in Globals.GlowEntities)
+        {
+            var glowEntity = entity.Value;
+            if (glowEntity.IsValid)
+                glowEntity.Remove();
+        }
+
+        Globals.GlowEntities.Clear();
+        Globals.Wallhackers.Clear();
+    }
 }

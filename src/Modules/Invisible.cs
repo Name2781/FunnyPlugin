@@ -141,4 +141,23 @@ public class Invisible
         Globals.Plugin.AddCommand("css_invisible", "Makes a player invisible", CommandInvisible.OnInvisibleCommand);
         Globals.Plugin.AddCommand("css_invis", "Makes a player invisible", CommandInvisible.OnInvisibleCommand);
     }
+
+    public static void Cleanup()
+    {
+        foreach (var player in Util.GetValidPlayers())
+        {
+            var pawn = player.PlayerPawn.Value;
+
+            pawn!.Render = Color.FromArgb(255, pawn.Render);
+            Utilities.SetStateChanged(pawn, "CBaseModelEntity", "m_clrRender");
+
+            foreach (var weapon in pawn.WeaponServices!.MyWeapons)
+            {
+                weapon.Value!.Render = pawn!.Render;
+                Utilities.SetStateChanged(weapon.Value, "CBaseModelEntity", "m_clrRender");
+            }
+        }
+
+        Globals.InvisiblePlayers.Clear();
+    }
 }

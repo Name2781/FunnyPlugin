@@ -30,6 +30,15 @@ public class FunniesPlugin : BasePlugin
         Wallhack.Setup();
     }
 
+    public override void Unload(bool hotReload)
+    {
+        if (hotReload)
+        {
+            Invisible.Cleanup();
+            Wallhack.Cleanup();
+        }
+    }
+
     public void OnTick()
     {
         Invisible.OnTick();
