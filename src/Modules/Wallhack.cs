@@ -112,7 +112,11 @@ public class Wallhack
         {
             var glowEntity = entity.Value;
             if (glowEntity.IsValid)
-                glowEntity.Remove();
+            {
+                // .Remove() crashes the server so this will at least mitigate the hot reload issue
+                glowEntity.Glow.GlowRange = 0;
+                glowEntity.DispatchSpawn();
+            }
         }
 
         Globals.GlowEntities.Clear();
