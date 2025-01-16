@@ -14,12 +14,16 @@ public class Invisible
         var gameRules = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules").First();
 
         if (gameRules.GameRules!.WarmupPeriod) return;
-        var c4 = Utilities.FindAllEntitiesByDesignerName<CC4>("weapon_c4").First();
+        var c4s = Utilities.FindAllEntitiesByDesignerName<CC4>("weapon_c4");
 
-        if (player!.Team != CsTeam.Terrorist && !gameRules.GameRules!.BombPlanted && !c4.IsPlantingViaUse  && !gameRules.GameRules!.BombDropped)
-            info.TransmitEntities.Remove(c4);
-        else
-            info.TransmitEntities.Add(c4);
+        if (c4s.Any())
+        {
+            var c4 = c4s.First();
+            if (player!.Team != CsTeam.Terrorist && !gameRules.GameRules!.BombPlanted && !c4.IsPlantingViaUse  && !gameRules.GameRules!.BombDropped)
+                info.TransmitEntities.Remove(c4);
+            else
+                info.TransmitEntities.Add(c4);
+        }
     }
 
     public static void OnTick()
