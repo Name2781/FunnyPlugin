@@ -40,7 +40,13 @@ public class Invisible
 
             var progress = (int)Util.Map(alpha, 0, 255, 0, 20);
             var pawn = invis.Key.PlayerPawn.Value;
-            
+
+            if (alpha == 0)
+            {
+                pawn!.EntitySpottedState.Spotted = false;
+                pawn!.EntitySpottedState.SpottedByMask[0] = 0;
+            }
+
             invis.Key.PrintToCenterHtml(string.Concat(Enumerable.Repeat("&#9608;", progress)) + string.Concat(Enumerable.Repeat("&#9617;", 20 - progress)));
 
             pawn!.Render = Color.FromArgb((int)alpha, pawn.Render);
