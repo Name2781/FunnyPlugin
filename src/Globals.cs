@@ -5,6 +5,7 @@ namespace Funnies;
 
 public static class Globals
 {
+    public static FunniesConfig Config { get; set; }
     public static List<CCSPlayerController> Wallhackers = [];
     public static Dictionary<CCSPlayerController, CDynamicProp> GlowEntities = [];
 

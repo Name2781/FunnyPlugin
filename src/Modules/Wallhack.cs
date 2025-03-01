@@ -85,7 +85,7 @@ public class Wallhack
 
         glowEntity.Glow.GlowRange = 5000;
         glowEntity.Glow.GlowRangeMin = 0;
-        glowEntity.Glow.GlowColorOverride = Color.FromArgb(255, 171, 75, 209);
+        glowEntity.Glow.GlowColorOverride = Color.FromArgb(255, Globals.Config.R, Globals.Config.G, Globals.Config.B);
         glowEntity.Glow.GlowTeam = -1;
         glowEntity.Glow.GlowType = 3;
 

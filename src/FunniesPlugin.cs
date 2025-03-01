@@ -1,14 +1,23 @@
-﻿using CounterStrikeSharp.API.Core;
+﻿using System.Text.Json.Serialization;
+using CounterStrikeSharp.API.Core;
 using Funnies.Commands;
 using Funnies.Modules;
 
 namespace Funnies;
+
+public class FunniesConfig : BasePluginConfig
+{
+    [JsonPropertyName("ColorR")] public byte R { get; set; } = 171;
+    [JsonPropertyName("ColorG")] public byte G { get; set; } = 75;
+    [JsonPropertyName("ColorB")] public byte B { get; set; } = 209;
+}
  
-public class FunniesPlugin : BasePlugin
+public class FunniesPlugin : BasePlugin, IPluginConfig<FunniesConfig>
 {
     public override string ModuleName => "Funny plugin";
-
     public override string ModuleVersion => "0.0.1";
+
+    public FunniesConfig Config { get; set; }
 
     public override void Load(bool hotReload)
     {
@@ -54,5 +63,11 @@ public class FunniesPlugin : BasePlugin
             Wallhack.OnPlayerTransmit(info, player!);
             Invisible.OnPlayerTransmit(info, player!);
         }
+    }
+
+    public void OnConfigParsed(FunniesConfig config)
+    {
+        Config = config;
+        Globals.Config = config;
     }
 }
