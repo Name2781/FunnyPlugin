@@ -13,14 +13,9 @@ public class Wallhack
     {
         foreach (var entity in Globals.GlowEntities)
         {
-            if (entity.Key.Team == CsTeam.Spectator)
-            {
-                info.TransmitEntities.Remove(entity.Value);
-            }
-
             if (Globals.Wallhackers.Contains(player!))
             {
-                if (entity.Key.Team != player!.Team && player!.Team != CsTeam.Spectator)
+                if (entity.Key.Team != player!.Team && player!.Team != CsTeam.Spectator && entity.Key.Team != CsTeam.Spectator)
                 {
                     info.TransmitEntities.Add(entity.Value);
                     continue;
