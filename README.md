@@ -10,6 +10,8 @@ This plugin recreates the 1v5 but one person has wallhacks and the invisible man
 ## Usage:
 
 ### Commands:
+Note: Make sure you have the `@css/generic` permission otherwise you wont be able to use commands. https://docs.cssharp.dev/docs/admin-framework/defining-admins.html
+
 1. `!wallhack <player name>` gives a player wallhacks.
 2. `!invisible <player name>` makes a player invisible. Note: have the invisible person take off their skins that have StatTrak or nametags on them otherwise they won't be hidden.
 
