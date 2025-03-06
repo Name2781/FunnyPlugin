@@ -15,7 +15,7 @@ public class Wallhack
         {
             if (Globals.Wallhackers.Contains(player!))
             {
-                if (entity.Key.Team != player!.Team)
+                if (entity.Key.Team != player!.Team && player!.Team != CsTeam.Spectator)
                 {
                     info.TransmitEntities.Add(entity.Value);
                     continue;
