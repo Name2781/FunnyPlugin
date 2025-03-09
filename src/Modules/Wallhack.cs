@@ -16,7 +16,7 @@ public class Wallhack
             if (Globals.Wallhackers.Contains(player!))
             {
                 if (!Util.IsPlayerValid(entity.Key) || !Util.IsPlayerValid(player)) continue;
-                
+
                 if (entity.Key.Team != player!.Team && player!.Team != CsTeam.Spectator && entity.Key.Team != CsTeam.Spectator)
                 {
                     info.TransmitEntities.Add(entity.Value);
@@ -74,12 +74,12 @@ public class Wallhack
 
         modelRelay!.Spawnflags = 256;
         modelRelay.Render = Color.Transparent;
-        modelRelay.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags = (uint)(modelRelay.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags & ~(1 << 2));
+        modelRelay.RenderMode = RenderMode_t.kRenderNone;
+        modelRelay.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags &= ~(1u << 2);
         modelRelay.SetModel(Util.GetPlayerModel(player));
 
-        // https://github.com/exkludera/cs2-glowing-entities/blob/main/src/main.cs
-        glowEntity!.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags = (uint)(glowEntity.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags & ~(1 << 2));
-
+        glowEntity!.Spawnflags = 256;
+        glowEntity!.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags &= ~(1u << 2);
         glowEntity.SetModel(Util.GetPlayerModel(player));
 
         glowEntity.DispatchSpawn();
