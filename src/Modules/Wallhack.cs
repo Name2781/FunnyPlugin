@@ -65,8 +65,21 @@ public class Wallhack
         if (!Globals.GlowData.TryGetValue(player!, out var glowData)) return HookResult.Continue;
 
         glowData.GlowEnt.Glow.GlowRange = 0;
-        // Its dumb to call this again but the server crashes if i do anything else
-        glowData.GlowEnt.DispatchSpawn();
+
+        return HookResult.Continue;
+    }
+
+    public static HookResult OnPlayerChangeTeam(EventPlayerTeam @event, GameEventInfo info)
+    {
+        var player = @event.Userid;
+        if (!Util.IsPlayerValid(player)) return HookResult.Continue;
+        if (!Globals.GlowData.TryGetValue(player!, out var glowData)) return HookResult.Continue;
+
+        Server.NextWorldUpdate(() => 
+        {
+            glowData.GlowEnt.SetModel(Util.GetPlayerModel(player));
+            glowData.ModelRelay.SetModel(Util.GetPlayerModel(player));
+        });
 
         return HookResult.Continue;
     }
@@ -77,15 +90,14 @@ public class Wallhack
         var modelRelay = Utilities.CreateEntityByName<CDynamicProp>("prop_dynamic");
 
         modelRelay!.Spawnflags = 256;
-        modelRelay.Render = Color.FromArgb(0, Color.Red);
+        modelRelay.Render = Color.Transparent;
         modelRelay.RenderMode = RenderMode_t.kRenderNone;
         modelRelay.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags &= ~(1u << 2);
         modelRelay.SetModel(Util.GetPlayerModel(player));
 
-        Utilities.SetStateChanged(modelRelay, "CBaseModelEntity", "m_clrRender");
-
         glowEntity!.Spawnflags = 256;
         glowEntity!.CBodyComponent!.SceneNode!.Owner!.Entity!.Flags &= ~(1u << 2);
+        glowEntity.Render = Color.FromArgb(1, 0, 0, 0);
         glowEntity.SetModel(Util.GetPlayerModel(player));
 
         glowEntity.DispatchSpawn();
@@ -112,6 +124,7 @@ public class Wallhack
         Globals.Plugin.RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath);
         Globals.Plugin.RegisterEventHandler<EventPlayerDisconnect>(OnPlayerDisconnect);
         Globals.Plugin.RegisterEventHandler<EventPlayerSpawn>(OnPlayerSpawn, HookMode.Post);
+        Globals.Plugin.RegisterEventHandler<EventPlayerTeam>(OnPlayerChangeTeam, HookMode.Post);
 
         Globals.Plugin.AddCommand("css_wh", "Gives a player walls", CommandWallhack.OnWallhackCommand);
         Globals.Plugin.AddCommand("css_wallhack", "Gives a player walls", CommandWallhack.OnWallhackCommand);
@@ -121,13 +134,11 @@ public class Wallhack
     {
         foreach (var entity in Globals.GlowData)
         {
-            var glowEntity = entity.Value.GlowEnt;
-            if (glowEntity.IsValid)
+            Server.NextWorldUpdate(() => 
             {
-                // .Remove() crashes the server so this will at least mitigate the hot reload issue
-                glowEntity.Glow.GlowRange = 0;
-                glowEntity.DispatchSpawn();
-            }
+                entity.Value.GlowEnt.Remove();
+                entity.Value.ModelRelay.Remove();
+            });
         }
 
         Globals.GlowData.Clear();
