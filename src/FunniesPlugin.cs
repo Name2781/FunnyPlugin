@@ -39,6 +39,7 @@ public class FunniesPlugin : BasePlugin, IPluginConfig<FunniesConfig>
         Wallhack.Setup();
     }
 
+#if DEBUG
     public override void Unload(bool hotReload)
     {
         if (hotReload)
@@ -47,6 +48,7 @@ public class FunniesPlugin : BasePlugin, IPluginConfig<FunniesConfig>
             Wallhack.Cleanup();
         }
     }
+#endif
 
     public void OnTick()
     {
