@@ -39,16 +39,18 @@ public class FunniesPlugin : BasePlugin, IPluginConfig<FunniesConfig>
         Wallhack.Setup();
     }
 
-#if DEBUG
     public override void Unload(bool hotReload)
     {
+        #if DEBUG
         if (hotReload)
         {
             Invisible.Cleanup();
             Wallhack.Cleanup();
         }
+        #else
+        Console.WriteLine($"Reloading: hotReload? {hotReload}");
+        #endif
     }
-#endif
 
     public void OnTick()
     {

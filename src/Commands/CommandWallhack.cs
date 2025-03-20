@@ -1,5 +1,4 @@
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Modules.Commands;
 
@@ -18,9 +17,7 @@ public class CommandWallhack
             if (Util.IsPlayerValid(caller))
                 Util.ServerPrintToChat(caller!, $"Toggled wallhacks on {command.ArgString}");
 
-            if (Globals.Wallhackers.Contains(player))
-                Globals.Wallhackers.Remove(player);
-            else
+            if (!Globals.Wallhackers.Remove(player))
                 Globals.Wallhackers.Add(player);
         }
         else

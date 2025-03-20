@@ -7,7 +7,7 @@ public static class Globals
 {
     public static FunniesConfig Config { get; set; }
     public static List<CCSPlayerController> Wallhackers = [];
-    public static Dictionary<CCSPlayerController, CDynamicProp> GlowEntities = [];
+    public static Dictionary<CCSPlayerController, InvisibleData> GlowData = [];
 
     public static Dictionary<CCSPlayerController, SoundData> InvisiblePlayers = [];
 
