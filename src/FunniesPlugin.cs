@@ -10,6 +10,8 @@ public class FunniesConfig : BasePluginConfig
     [JsonPropertyName("ColorR")] public byte R { get; set; } = 171;
     [JsonPropertyName("ColorG")] public byte G { get; set; } = 75;
     [JsonPropertyName("ColorB")] public byte B { get; set; } = 209;
+    [JsonPropertyName("CommandPermission")] public string AdminPermission { get; set; } = "@css/generic";
+    [JsonPropertyName("RconPermission")] public string RconPermission { get; set; } = "@css/rcon";
 }
  
 public class FunniesPlugin : BasePlugin, IPluginConfig<FunniesConfig>

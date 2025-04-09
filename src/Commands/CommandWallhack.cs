@@ -8,7 +8,7 @@ public class CommandWallhack
 {
     public static void OnWallhackCommand(CCSPlayerController? caller, CommandInfo command)
     {
-        if (!AdminManager.PlayerHasPermissions(caller, "@css/generic")) return;
+        if (!AdminManager.PlayerHasPermissions(caller, Globals.Config.AdminPermission)) return;
         
         var player = Util.GetPlayerByName(command.ArgString);
 

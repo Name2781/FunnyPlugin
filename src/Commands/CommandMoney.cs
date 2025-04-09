@@ -9,7 +9,7 @@ public class CommandMoney
 {
     public static void OnMoneyCommand(CCSPlayerController? caller, CommandInfo command)
     {
-        if (!AdminManager.PlayerHasPermissions(caller, "@css/generic")) return;
+        if (!AdminManager.PlayerHasPermissions(caller, Globals.Config.AdminPermission)) return;
         
         int index = command.ArgString.IndexOf(' ');
         int money = int.Parse(command.ArgString[..index]);

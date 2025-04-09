@@ -9,7 +9,7 @@ public class CommandRcon
 {
     public static void OnRconCommand(CCSPlayerController? caller, CommandInfo command)
     {
-        if (!AdminManager.PlayerHasPermissions(caller, "@css/rcon")) return;
+        if (!AdminManager.PlayerHasPermissions(caller, Globals.Config.RconPermission)) return;
         
         Server.ExecuteCommand(command.ArgString);
     }
