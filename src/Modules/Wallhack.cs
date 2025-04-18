@@ -35,6 +35,8 @@ public class Wallhack
         var player = @event.Userid;
         if (!Util.IsPlayerValid(player)) return HookResult.Continue;
         if (player!.Team < CsTeam.Terrorist) return HookResult.Continue; // if player isnt on a team
+        var gameRules = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules").First();
+        if (gameRules.GameRules!.WarmupPeriod) return HookResult.Continue;
 
         Glow(player!);
 
@@ -63,8 +65,10 @@ public class Wallhack
         var player = @event.Userid;
         if (!Util.IsPlayerValid(player)) return HookResult.Continue;
         if (!Globals.GlowData.TryGetValue(player!, out var glowData)) return HookResult.Continue;
+        if (!glowData.GlowEnt.IsValid) return HookResult.Continue;
 
         glowData.GlowEnt.Glow.GlowRange = 0;
+        glowData.GlowEnt.DispatchSpawn();
 
         return HookResult.Continue;
     }
@@ -74,6 +78,8 @@ public class Wallhack
         var player = @event.Userid;
         if (!Util.IsPlayerValid(player)) return HookResult.Continue;
         if (!Globals.GlowData.TryGetValue(player!, out var glowData)) return HookResult.Continue;
+        if (!glowData.GlowEnt.IsValid) return HookResult.Continue;
+        if (!glowData.ModelRelay.IsValid) return HookResult.Continue;
 
         Server.NextWorldUpdate(() => 
         {
