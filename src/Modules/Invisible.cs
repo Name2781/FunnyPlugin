@@ -106,6 +106,9 @@ public class Invisible
 
     public static HookResult OnPlayerSound(EventPlayerSound @event, GameEventInfo info)
     {
+        if (@event.Duration <= 0.1f && @event.Radius <= 100)
+            return HookResult.Continue;
+            
         SetPlayerInvisibleFor(@event.Userid, @event.Duration * 2);
 
         return HookResult.Continue;
